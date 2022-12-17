@@ -8,6 +8,12 @@ const toggleButton = document.querySelector('[bw-portfolio-element="allow-autopl
 let autoplayEnabled = false;
 toggleButton.addEventListener('click', function () {
   autoplayEnabled = !autoplayEnabled;
+
+  portfolioItems.forEach(function (item) {
+    const video = item.querySelector('[bw-portfolio-element="video"]');
+    video.play();
+    video.pause();
+  });
 });
 
 portfolioItems.forEach(function (item) {
