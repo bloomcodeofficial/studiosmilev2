@@ -20,18 +20,32 @@ portfolioItems.forEach(function (item) {
   const video = item.querySelector('[bw-portfolio-element="video"]');
   const thumbnail = item.querySelector('[bw-portfolio-element="thumbnail"]');
   const content = item.querySelector('[bw-portfolio-element="content"]');
+  const playButton = item.querySelector('[bw-portfolio-element="play-button"]');
 
   const fadeInDelay = 100; // 0.1 seconds
 
   item.addEventListener('mouseenter', function () {
-    // Only play the video if autoplay is enabled
+    // Fade out elements and play the video if autoplay is enabled
     if (autoplayEnabled) {
+      // Fade out Thumbnail and Content
+      thumbnail.style.opacity = 0;
+      setTimeout(function () {
+        content.style.opacity = 0;
+      }, fadeInDelay);
+
+      // Play video
       video.play();
+
+      // Fade out elements and fade in play button if autoplay is disabled
+    } else if (!autoplayEnabled) {
+      thumbnail.style.opacity = 0;
+      setTimeout(function () {
+        content.style.opacity = 0;
+      }, fadeInDelay);
+
+      // Fade in play button
+      playButton.style.opacity = 1;
     }
-    thumbnail.style.opacity = 0;
-    setTimeout(function () {
-      content.style.opacity = 0;
-    }, fadeInDelay);
   });
 
   item.addEventListener('mouseleave', function () {
@@ -40,6 +54,9 @@ portfolioItems.forEach(function (item) {
     setTimeout(function () {
       content.style.opacity = 1;
     }, fadeInDelay);
+
+    // Fade out play button
+    playButton.style.opacity = 0;
   });
 
   // Add click event listener to open modal
